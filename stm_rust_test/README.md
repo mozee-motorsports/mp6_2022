@@ -267,5 +267,95 @@ right side of the equality both return `Some` value.
 If the `if let` statement is valid, we're going to have a scope where we have access to both
 the chip peripherals and the board peripherals.
 
-### This is a WIP, I will finish the rest of the explanation soon.
 
+```rust
+let gpioa = dp.GPIOA.split();
+let mut led = gpioa.pa5.into_push_pull_output();
+```
+Here, we declare a variable `gpoia`. On our microcontroller, there are 8 GPIO
+(General-Purpose Input/Output) busses: GPIOA through GPIOH. On most STM32 Nucleo boards with
+a Cortex M4, the microcontroller LED is mapped to PA5, which is Pin 5 on the A bus. 
+
+In the `gpioa` declaration, we're referencing `dp`, which is a struct of all the board peripherals. 
+We then reference `GPIOA`, which is a field in the `Peripherals` struct. The `split()` method returns
+a `struct` of type `Parts`, which has fields for each pin in the bus, which contain the pointers to 
+the indivdual bits in memory that correspond to the pins. 
+
+Next, we declare a `mutable` variable `led` that provides a handle to Pin A5 `gpioa.pa5`. The 
+`into_push_pull_output()` function writes to the *mode register (MODER)* for the GPIOA bus, 
+setting the mode of the pin as an output. `push_pull` is a circuits concept that I won't get
+into here, but all this means is it's a digital output that can change beteween one and zero. 
+
+Each pin has four possible modes:
+1. digital input
+2. push/pull output
+3. alternate function
+4. analog
+Alternate function is a little more complicated and is controled by the Alternate Function Register. 
+I also won't get into that here. Analog turns the pin into an analog input, which requires use of the
+ADC. 
+
+We declare the `led` variable using the `mut` keyword, because we want to be able to write out to it.
+All Rust variables are *immutable* by default, and we have to explicitly declare when something should
+have mutable state. 
+
+
+
+```rust
+        let rcc = dp.RCC.constrain();
+        let clocks = rcc.cfgr.sysclk(48.MHz()).freeze();
+```
+
+The `RCC` is the STM32 *Reset and Clock Controller*. This is a control chip that routes clock signals
+from the microprocessor to the peripherals. The `constrain()` method converts the raw RCC pointer into
+a struct of type `Rcc`, that lets us safely access the functionality of the RCC without screwing things up. 
+Once we have the `rcc` variable which is of type `Rcc`, we now have access to the configuration field of the
+struct `cfgr`. The `cfgr` field is a struct of type `CFGR`, which has a bunch of functions to interact with 
+the RCC. Next, we call the method `sysclck(freq: Hertz)`, which modifies the `cfgr` field to have a clock
+speed of 48 Mhz. Finally, we call the `freeze()` method on the `cfgr` field, which locks the clock speed
+and applies it to the actual system. This function returns a `struct` of type `Clocks`, which has a bunch
+of fields that store the current state of all the clocks on the system. For instance, the `Clocks` struct
+has a field called `sysclk`, which now contains the value `Hertz<48000000, 1, 1>`. 
+
+A lot of these functions might seem very convoluted or confusing, with weird . However, this really is 
+everything that needs to happen to configure an embedded system. Most of these functions are intended 
+for *initial configuration*, and the compiler enforces that these are only called once. For instance, the
+`freeze()` method can only be called once, and locks the clock configuration of the system. The `clocks`
+variable is the only one that can exist in the program, and its existence implies that `freeze()` has
+been called, and that the clocks for the system have been configured. 
+
+
+```rust
+    let mut delay = cp.SYST.delay(&clocks);
+```
+Next, we declare a mutable handle to a `SysDelay` type. First, we reference the `SYST` field of the 
+core peripherals handle. SYST is the System Timer, which we previously set using the `freeze()` function. 
+We then call the `delay(self, clocks: &Clocks)` method, which returns a `SysDelay` struct that has the 
+implementation for delay. 
+
+The SysDelay struct has the delay method we're looking for: `delay(&mut self, us: MicrosDurationU32)`, which
+gets used by an associated function `delay_ms(&mut self, ms: u32)`. According to the documentation, this 
+"pauses execution for `ms` milliseconds". 
+
+
+```rust
+loop {
+    led.set_high();
+    delay.delay_ms(1000_u32);
+    led.set_low();
+    delay.delay_ms(1000_u32);
+}
+```
+Finally, we get to the main loop. Our system is configured, and we have handles to all of the peripherals we need. 
+- The `set_high` method takes a reference to the pin, and sets it to high. 
+- The `delay_ms` method gets called on our delay object for 1000ms.
+- The `set_high` method gets called on our pin, setting it to low. 
+- The `delay_ms` method gets called on our delay object for 1000ms.
+
+
+Thats it! Thats our whole program. 
+
+Notice how a lot of the work for our short program is *system configuration*. When we work this close to the hardware,
+we can't make any assumptions about the state of the machine. However, dealing with safe methods and higher level code is
+still a lot better than dealing with raw memory addresses and dereferenced pointers, and it's a lot easier to read
+Rust crate documentation than thousands of pages of STM documentation. 
