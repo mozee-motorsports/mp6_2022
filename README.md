@@ -63,3 +63,10 @@ git checkout -b <name>
 We can also see which branch we are on by calling `git branch` with no arguments, and available branches by calling `git checkout` without any arguments.
 
 If the command line is a bit scary to use, most modern editors have `git` support built in. VSCode has `git` support under the Version Control tab, and the GitLens extension is very good for adding extra functionality. 
+
+## Relavant Documentation
+- [cortex_m crate](https://docs.rs/cortex-m/)
+- [cortex_m runtime crate](https://docs.rs/cortex-m-rt/latest/cortex_m_rt/)
+- [stm32f4 hal](https://docs.rs/stm32f4xx-hal)
+- [stm32f7 hal](https://docs.rs/stm32f7xx-hal)
+- [panic_halt](https://docs.rs/panic-halt/)
