@@ -32,5 +32,5 @@ pub fn init() -> (pac::Peripherals, cortex_m::Peripherals) {
         (pac::Peripherals::take(), cortex_m::Peripherals::take(),) {
             (device_peripherals, chip_peripherals,)
     } else { panic!() }
-}
+
 
