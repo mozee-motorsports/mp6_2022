@@ -1,3 +1,0 @@
-cargo:rustc-link-search=/mnt/c/formula stuff/ce2801_lab_5/target/debug/build/cortex-m-rt-b6e32009a7bcef37/out
-cargo:rerun-if-changed=build.rs
-cargo:rerun-if-changed=link.x.in
