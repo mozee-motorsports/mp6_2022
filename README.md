@@ -1,5 +1,6 @@
 # FormulaHybrid_MP6
 Code repository for MSOE SAE Formula Hybrid MP6.
+https://github.com/rust-lang/rustlings
 
 ## Notes for team
 If you're doing any specific project work, please work on your own branch and open a PR when everything's ready to go. 
