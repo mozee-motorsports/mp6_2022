@@ -70,3 +70,4 @@ If the command line is a bit scary to use, most modern editors have `git` suppor
 - [stm32f4 hal](https://docs.rs/stm32f4xx-hal)
 - [stm32f7 hal](https://docs.rs/stm32f7xx-hal)
 - [panic_halt](https://docs.rs/panic-halt/)
+- [svd2rust](https://docs.rs/svd2rust/0.24.1/svd2rust/#peripheral-api)
