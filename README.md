@@ -8,6 +8,20 @@ If you're doing any specific project work, please work on your own branch and op
 $ git branch <name>
 $ git checkout <name>
 ```
+1. Install Rust 
+	- Windows: install rust-init.exe from website
+	- WSL: `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
+2. Update toolchain: `rustup update`
+2.1 Install `rust-analyzer`
+3. Install cargo-flash
+	- `cargo install cargo-flash `
+4. Install compile target
+	- `rustup target add thumbv7em-none-eabihf`
+5. Flash board
+	- Plug in board
+	- `cargo-flash --chip STM32F411RETx --release`
+	- Alternatively, `./build_unix` for Linux/WSL or `./build` for Windows
+
 ## Little Primer on Git
 `git` is a version control system that concurrent modification on files and directories by tracking changes to a filesystem. 
 A folder that we use with `git` is called a *repository*. 
