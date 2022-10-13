@@ -1,0 +1,16 @@
+[target.thumbv7em-none-eabihf]
+# use linker script Tlink.x script
+rustflags = ["-C", "link-arg=-Tlink.x"]
+
+[build]
+# always compile to stm32f4
+target = "thumbv7em-none-eabihf"
+
+[env]
+DEFMT_LOG = "info"
+
+
+
+
+
+
