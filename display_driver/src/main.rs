@@ -14,12 +14,13 @@ use crate::hal::{pac, prelude::*};
 
 pub use embedded_hal::blocking::delay::{DelayMs, DelayUs};
 
+use embedded_graphics::{
+    mono_font::{ascii::FONT_5X8, MonoTextStyle}, 
+    prelude::*,
+    text::Text,
+};
 
 
-const GPIOA_BSRR: *mut u32 = 0x40020018 as *mut u32;
-const GPIOC_BSRR: *mut u32 = 0x40020818 as *mut u32;
-const GPIOA_ODR: *mut u32 = 0x40020014 as *mut u32;
-const GPIOC_ODR: *mut u32 = 0x40020814 as *mut u32;
 /*
  * Notes: 
  * Display Data bus is on PA4-11
@@ -36,6 +37,8 @@ fn main() -> !{
 
     let rcc = device.RCC.constrain();
     let clocks = rcc.cfgr.sysclk(48.MHz()).freeze();
+
+    let gpioc = device.GPIOC;
 
     let display = Display::new(chip.SYST.delay(&clocks));
 
