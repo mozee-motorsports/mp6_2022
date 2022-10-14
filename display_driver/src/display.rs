@@ -5,8 +5,15 @@ const GPIOC_ODR: *mut u32 = 0x40020814 as *mut u32;
 
 //TODO
 use crate::*;
+
 use hal::pac::{GPIOC, GPIOA};
 use stm32f4xx_hal as hal;
+
+use embedded_graphics::{
+    mono_font::{ascii::FONT_5X8, MonoTextStyle}, 
+    prelude::*,
+    text::Text,
+};
 
 pub struct Display {
     delay: SysDelay,
@@ -27,7 +34,7 @@ enum DisplayInstruction {
     Home, 
     EntryMode,
     OnOff,
-    Shift,
+    Shift(Direction),
     FunctionSet, 
     SetCGRAM,
     SetDDRAM, 
@@ -35,6 +42,13 @@ enum DisplayInstruction {
     ReadBusyFlag,
     // ReadData,
 }
+
+enum Direction {
+    Left,
+    Right,
+}
+
+use Direction as _;
 
 enum DisplayError {
     Error,
@@ -96,7 +110,42 @@ impl Display {
             w.bits(data << 4 | (r.bits()) & 0b111111110000) 
         });
 
+        self.delay.delay_ms(10);            // HACK: too long, shouldn't be hardcoded
+
         Ok(())
     }
+
+    pub fn lcd_init(&mut self) {
+        self.delay.delay_ms(40_u32);
+        self.write_instruction(DisplayInstruction::FunctionSet);
+        self.write_instruction(DisplayInstruction::FunctionSet);
+        self.write_instruction(DisplayInstruction::OnOff);
+        self.write_instruction(DisplayInstruction::Clear);
+        self.write_instruction(DisplayInstruction::EntryMode);
+    }
+
+    pub fn lcd_set_position(&mut self, row: bool, col: u32) {
+        self.write_instruction(DisplayInstruction::Home);
+        if row {
+            for i in 0..40 {
+                self.write_instruction(DisplayInstruction::Shift(Right));
+            }
+        }
+
+        for i in 0..col {
+            self.write_instruction(DisplayInstruction::Shift(_::Right));
+        }
+    }
+
+    pub fn print_string(&mut self, string: &str) {
+        // HACK: hacky solution, should check if string contains non-ASCII character
+
+
+        let str = string.bytes()
+            .map(|x| self.write_data(x_u32));
+    }
+
+
+
 }
 

@@ -4,6 +4,7 @@
 
 
 mod display;
+
 use display::*;
 
 use hal::timer::SysDelay;
@@ -39,8 +40,10 @@ fn main() -> !{
     let clocks = rcc.cfgr.sysclk(48.MHz()).freeze();
 
     let gpioc = device.GPIOC;
+    let gpioa = device.GPIOA;
 
-    let display = Display::new(chip.SYST.delay(&clocks));
+    let display = Display::new(chip.SYST.delay(&clocks), gpioc, gpioa);
+    let display_2 = chip.SYST.delay(&clocks);
 
 
 
