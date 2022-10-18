@@ -128,12 +128,12 @@ impl Display {
         self.write_instruction(DisplayInstruction::Home);
         if row {
             for i in 0..40 {
-                self.write_instruction(DisplayInstruction::Shift(Right));
+                self.write_instruction(DisplayInstruction::Shift(Direction::Right));
             }
         }
 
         for i in 0..col {
-            self.write_instruction(DisplayInstruction::Shift(_::Right));
+            self.write_instruction(DisplayInstruction::Shift(Direction::Right));
         }
     }
 
