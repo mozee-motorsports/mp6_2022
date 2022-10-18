@@ -12,6 +12,7 @@ kanban-plugin: basic
 - [ ] Full setup for rust
 - [ ] Research board
 - [ ] KiCad hat for board
+- [ ] anatomy of an embedded rust program
 
 
 ## In Progress
