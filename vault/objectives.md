@@ -9,16 +9,19 @@ kanban-plugin: basic
 - [ ] Setup Guide for Git Repo/Docs
 - [ ] Setup Guide for VSCode
 - [ ] Setup Guide for Intellij
+- [ ] Full setup for rust
+- [ ] Research board
+- [ ] KiCad hat for board
 
 
 ## In Progress
 
+- [ ] Display driver
 - [ ] Driver Implementation Template/Framework
 
 
 ## Testing
 
-- [ ] Display driver
 
 
 ## Shipped
