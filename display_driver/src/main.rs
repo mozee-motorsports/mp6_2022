@@ -4,8 +4,10 @@
 
 
 mod display;
+mod tim5;
 
 use display::*;
+use tim5::*;
 
 use hal::timer::SysDelay;
 use panic_halt as _;
