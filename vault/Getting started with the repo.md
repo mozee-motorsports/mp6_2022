@@ -10,4 +10,4 @@ If you are on a developement branch and wish to change to the main branch, simpl
 ### Creating a branch
 If you wish to create a branch, simply type out "git checkout -b *name of your new branch*". This will create your branch and automatically place you inside of it.
 ### Pushing your branch
-If you wish to 
+If you wish to push your branch to the remote repository you use the following commands: git commit -a -m 'your message here'. Once you have commited, you will be able to push to origin. The command git push -u origin *name of the branch*. This will make the branch available on the remote repository to be pulled from and pushed to.
