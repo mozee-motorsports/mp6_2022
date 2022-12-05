@@ -7,7 +7,8 @@ edition = "2021"
 
 [dependencies]
 embedded-hal = "0.2.3"
-cortex-m = { version = "0.7", features = ["inline-asm"]}
+# cortex-m = { version = "0.7", features = ["inline-asm"]}
+cortex-m = "0.7"
 cortex-m-rt = "0.7"
 rtt-target = { version = "0.3", features = ["cortex-m"] } 
 
@@ -23,6 +24,9 @@ embassy-sync = { git = "https://github.com/embassy-rs/embassy", features = ["def
 embassy-macros = { git = "https://github.com/embassy-rs/embassy" }
 embassy-stm32 = { git = "https://github.com/embassy-rs/embassy", features = ["nightly", "unstable-traits", "defmt", "stm32f411RE", "unstable-pac", "memory-x", "time-driver-any", "exti"]  }
 
+[dependencies.stm32f4]
+version = "0.15.1"
+features = ["stm32f411", "rt"]
 
 [profile.release]
 codegen-units = 1

@@ -9,6 +9,7 @@ use embassy_time::Delay;
 use cortex_m_rt as rt;
 
 mod drivers;
+mod consts;
 
 
 #[rt::entry]
