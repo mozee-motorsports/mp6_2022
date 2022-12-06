@@ -1,0 +1,31 @@
+[package]
+name = "can"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+# embassy-sync = { version = "0.1.0", git = "https://github.com/embassy-rs/embassy"}
+# embassy-executor = { version = "0.1.0", git = "https://github.com/embassy-rs/embassy", features = ["integrated-timers"] }
+# embassy-time = { version = "0.1.0", git = "https://github.com/embassy-rs/embassy", features = ["unstable-traits", "tick-hz-32_768"] }
+embassy-stm32 = { version = "0.1.0", git = "https://github.com/embassy-rs/embassy", features = ["nightly", "unstable-traits", "stm32f429zi", "unstable-pac", "memory-x", "time-driver-any", "exti"]  }
+embassy-sync = { version = "0.1.0", git = "https://github.com/embassy-rs/embassy"}
+embassy-executor = { version = "0.1.0", git = "https://github.com/embassy-rs/embassy" }
+embassy-time = { version = "0.1.0", git = "https://github.com/embassy-rs/embassy"}
+# defmt = "0.3"
+# defmt-rtt = "0.3"
+
+cortex-m = { version = "0.7.6", features = ["critical-section-single-core"] }
+cortex-m-rt = "0.7.0"
+embedded-hal = "0.2.6"
+panic-halt = "0.2.0"
+futures = { version = "0.3.17", default-features = false, features = ["async-await"] }
+
+defmt = "0.3"
+defmt-rtt = "0.4"
+
+embedded-io = "0.4.0"
+panic-probe = { version = "0.3", features = ["print-defmt"] }
+heapless = { version = "0.7.5", default-features = false }
+nb = "1.0.0"
