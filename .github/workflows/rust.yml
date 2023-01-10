@@ -21,9 +21,6 @@ jobs:
     - name: Install rust-std
       working-directory: ./stm_rust_test
       run: rustup target add thumbv7em-none-eabihf
-    - name: Install Board Package
-      working-directory: ./stm_rust_test
-      run: rustup install thumbv7em-none-eabihf
 
   build:
     runs-on: ubuntu-latest
