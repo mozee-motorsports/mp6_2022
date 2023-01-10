@@ -17,10 +17,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Change Directory
-      run: cd ./stm_rust_test
+      run: cd ./stm_rust_test | pwd
     - name: Check Directory
       run: pwd
     - name: Build
+      working-directory: ./stm_rust_test
       run: cargo build --verbose
   test:
     runs-on: ubuntu-latest
