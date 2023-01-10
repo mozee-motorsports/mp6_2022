@@ -26,5 +26,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+    - name: Install Dependencies
+      working-directory: ./stm_rust_test
+      run: rustup install thumbv7em-none-eabihf
     - name: Test
+      working-directory: ./stm_rust_test
       run: cargo test --verbose
