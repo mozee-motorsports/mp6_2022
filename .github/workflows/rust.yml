@@ -16,7 +16,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Change Directory
+      run: cd ./stm_rust_test
     - name: Build
-      run: cd stm_rust_test | cargo build --verbose
+      run: cargo build --verbose
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
     - name: Test
       run: cargo test --verbose
