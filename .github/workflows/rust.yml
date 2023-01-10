@@ -15,12 +15,12 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
-    - name: Update Rustup
-      working-directory: ./stm_rust_test
-      run: rustup toolchain install nightly --allow-downgrade --profile minimal --component clippy | rustup update
     - name: Setup Default
       working-directory: ./stm_rust_test
       run: rustup default nightly
+    - name: Install rust-std
+      working-directory: ./stm_rust_test
+      run: rustup target add thumbv7em-none-eabihf
     - name: Install Board Package
       working-directory: ./stm_rust_test
       run: rustup install thumbv7em-none-eabihf
