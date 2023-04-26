@@ -137,6 +137,7 @@ int main(void)
 	  }
 
 
+
 	  HAL_Delay (100);   /* Insert delay 100 ms */
 
   }
