@@ -1,7 +1,5 @@
-# FormulaHybrid_MP6
-Code repository for MSOE SAE Formula Hybrid MP6.
-https://github.com/rust-lang/rustlings
-
+# mp6_2022
+Legacy Repository for software in 2022-23 season
 ## Notes for team
 If you're doing any specific project work, please work on your own branch and open a PR when everything's ready to go. 
 
